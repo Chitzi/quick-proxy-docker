@@ -8,7 +8,6 @@ set -eu
 : "${ALLOW_CIDRS:=0.0.0.0/0}"
 
 cat > /etc/3proxy.cfg <<EOF
-daemon
 nscache 65536
 timeouts 1 5 30 60 180 1800 15 60
 
