@@ -11,7 +11,6 @@ cat > /etc/3proxy.cfg <<EOF
 nscache 65536
 timeouts 1 5 30 60 180 1800 15 60
 log /dev/stdout
-loglevel 5
 
 internal 0.0.0.0
 external 0.0.0.0
