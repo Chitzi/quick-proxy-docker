@@ -1,8 +1,6 @@
 #!/bin/sh
 set -eu
 
-apk add --no-cache 3proxy >/dev/null
-
 : "${LOCAL_USER:?LOCAL_USER is required}"
 : "${LOCAL_PASS:?LOCAL_PASS is required}"
 : "${UPSTREAM_HOST:?UPSTREAM_HOST is required}"
@@ -40,4 +38,4 @@ flush
 EOF
 
 echo "[proxy-gateway] listening on :3128 -> upstream ${UPSTREAM_HOST}:${UPSTREAM_PORT}"
-exec 3proxy /etc/3proxy.cfg
+exec /usr/local/bin/3proxy /etc/3proxy.cfg
