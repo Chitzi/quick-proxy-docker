@@ -15,12 +15,10 @@ log /dev/stdout
 internal 0.0.0.0
 external 0.0.0.0
 
-# Forward everything to upstream proxy (no auth)
-parent 1000 http ${UPSTREAM_HOST} ${UPSTREAM_PORT}
-
 # Local auth for your app
-auth strong
 users ${LOCAL_USER}:CL:${LOCAL_PASS}
+
+auth strong
 EOF
 
 # allow rules (comma-separated CIDRs)
@@ -30,6 +28,9 @@ echo "$ALLOW_CIDRS" | tr ',' '\n' | while read -r cidr; do
 done
 
 cat >> /etc/3proxy.cfg <<EOF
+
+# Forward everything to upstream proxy (no auth)
+parent 1000 http ${UPSTREAM_HOST} ${UPSTREAM_PORT}
 
 # Local proxy listens on 3128 (supports CONNECT)
 proxy -p3128 -a
