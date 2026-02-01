@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  proxy-gateway:
+    image: alpine:3.20
+    container_name: proxy-gateway
+    restart: unless-stopped
+    ports:
+      - "3128:3128"
+    environment:
+      # Credentials your APPLICATION will use
+      LOCAL_USER: "appuser"
+      LOCAL_PASS: "apppass"
+
+      # Upstream proxy (IP-auth only, no user/pass)
+      UPSTREAM_HOST: "5.79.73.131"
+      UPSTREAM_PORT: "13010"
+
+      # Lock down who can connect to this gateway (recommended!)
+      # Example: only your app server public IP:
+      # ALLOW_CIDRS: "x.x.x.x/32"
+      ALLOW_CIDRS: "0.0.0.0/0"
+    volumes:
+      - ./entrypoint.sh:/entrypoint.sh:ro
+    command: ["/bin/sh", "/entrypoint.sh"]
